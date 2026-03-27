@@ -1,11 +1,13 @@
 import java.util.*;
 
+// Program to check if a number is an Armstrong number or not and to find all the Armstrong numbers in a given range.
+// TriTea@blackpharaoh
 class Armstrong {
 
-    static void VerifyArm(int n) {
+    static void VerifyArm(int n) {    //Function to verify if a number is an Armstrong number or not.
         int sum = 0, temp, r;
         temp = n;
-        while (temp != 0) {
+        while (temp != 0) {    //Loop for Armstrong Logic.
             r = temp % 10;
             sum += r * r * r;
             temp /= 10;
@@ -18,7 +20,7 @@ class Armstrong {
 
     static void RangeArm(int f, int l) {
         int sum, temp, r;
-        for (int i = f; i <= l; i++) {
+        for (int i = f; i <= l; i++) {   //Loop to find Armstrong numbers in the given range.
             temp = i;
             sum = 0;
             while (temp != 0) {
@@ -39,7 +41,7 @@ class Armstrong {
             System.out.println("Enter your choice please: \n 1. Verify a Number \n 2.Find a given range.");
             ch = scan.nextInt();
             if (ch == 1) {
-                System.out.println("Enter the number to verify: ");
+                System.out.println("Enter the number to verify: "); 
                 int num = scan.nextInt();
                 VerifyArm(num);
                 System.out.println("Press 1 to continue or 0 to exit:");
@@ -50,6 +52,12 @@ class Armstrong {
                 int f = scan.nextInt();
                 System.out.println("To: ");
                 int l = scan.nextInt();
+                if (f > l) {
+                    System.out.println("Invalid Range! Please try again..");
+                    System.out.println("Press 1 to continue or any key to exit:");
+                    ct = scan.nextInt();
+                    continue;
+                }
                 RangeArm(f, l);
                 System.out.println("Press 1 to continue or 0 to exit:");
                 ct = scan.nextInt();
@@ -58,6 +66,6 @@ class Armstrong {
                 System.out.println("Press 1 to continue or any key to exit:");
                 ct = scan.nextInt();
             }
-        } while (ct == 1);
+        } while (ct == 1);  //Loop to continue the program until the user wants to exit.
     }
 }
