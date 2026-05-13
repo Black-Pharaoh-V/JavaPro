@@ -4,68 +4,76 @@ import java.util.*;
 // TriTea@blackpharaoh
 class Armstrong {
 
-    static void VerifyArm(int n) {    //Function to verify if a number is an Armstrong number or not.
-        int sum = 0, temp, r;
-        temp = n;
-        while (temp != 0) {    //Loop for Armstrong Logic.
-            r = temp % 10;
-            sum += r * r * r;
+    // The single source of truth for Armstrong logic
+    static boolean isArmstrong(int n) {
+        int sum = 0, temp = n;
+        // Calculate number of digits (the power)
+        int digits = String.valueOf(n).length();
+
+        while (temp != 0) {
+            int r = temp % 10;
+            // Math.pow returns a double, so we cast it to int
+            sum += Math.pow(r, digits);
             temp /= 10;
         }
-        if (sum == n) {
+        return sum == n;
+    }
+
+    static void VerifyArm(int n) {
+        if (isArmstrong(n)) {
             System.out.println(n + " is an Armstrong Number.");
-        } else
+        } else {
             System.out.println(n + " is not an Armstrong Number.");
+        }
     }
 
     static void RangeArm(int f, int l) {
-        int sum, temp, r;
-        for (int i = f; i <= l; i++) {   //Loop to find Armstrong numbers in the given range.
-            temp = i;
-            sum = 0;
-            while (temp != 0) {
-                r = temp % 10;
-                sum += r * r * r;
-                temp /= 10;
-            }
-            if (sum == i) {
-                System.out.print(i + ", ");
+        System.out.print("Armstrong numbers in range: ");
+        for (int i = f; i <= l; i++) {
+            if (isArmstrong(i)) {
+                System.out.print(i + " ");
             }
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        int ch, ct;
+        int ch, ct = 0;
+        
         do {
-            System.out.println("Enter your choice please: \n 1. Verify a Number \n 2.Find a given range.");
+            System.out.println("\nEnter your choice please: \n 1. Verify a Number \n 2. Find a given range. \n 3. Exit");
             ch = scan.nextInt();
+
             if (ch == 1) {
-                System.out.println("Enter the number to verify: "); 
+                System.out.println("Enter the number to verify: ");
                 int num = scan.nextInt();
                 VerifyArm(num);
                 System.out.println("Press 1 to continue or 0 to exit:");
                 ct = scan.nextInt();
             } else if (ch == 2) {
                 System.out.println("Enter the range to find Armstrong numbers: ");
-                System.out.println("From: ");
+                System.out.print("From: ");
                 int f = scan.nextInt();
-                System.out.println("To: ");
+                System.out.print("To: ");
                 int l = scan.nextInt();
+                
                 if (f > l) {
                     System.out.println("Invalid Range! Please try again..");
-                    System.out.println("Press 1 to continue or any key to exit:");
-                    ct = scan.nextInt();
+                    ct = 1; // Set to 1 so the loop continues
                     continue;
                 }
                 RangeArm(f, l);
                 System.out.println("Press 1 to continue or 0 to exit:");
                 ct = scan.nextInt();
+            } else if (ch == 3) {
+                ct = 0;
             } else {
                 System.out.println("Invalid Choice! Please try again..");
-                System.out.println("Press 1 to continue or any key to exit:");
-                ct = scan.nextInt();
+                ct = 1;
             }
-        } while (ct == 1);  //Loop to continue the program until the user wants to exit.
+        } while (ct == 1);
+        
+        scan.close(); 
     }
 }
